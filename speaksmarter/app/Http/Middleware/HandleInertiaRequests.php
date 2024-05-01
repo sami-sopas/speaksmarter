@@ -36,8 +36,12 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        //Por props, se pueden pasar datos a todas las vistas
+        //para no tener que estarlas pasando siempres de manera manual
+
         return array_merge(parent::share($request), [
-            //
+            'user.roles' => $request->user() ? $request->user()->roles->pluck('name') : [], //Guardamos todos los nombres de los roles del usuario actual
+            'user.permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [], //Guardamos todos los permisos del usuario actual en base al rol que tenga
         ]);
     }
 }
