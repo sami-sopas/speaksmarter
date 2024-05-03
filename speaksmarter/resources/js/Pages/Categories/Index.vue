@@ -8,6 +8,8 @@
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue';
     import { Link } from '@inertiajs/vue3';
+    import { Inertia } from '@inertiajs/inertia';
+    import { router } from "@inertiajs/vue3";
 
     defineProps({
         categories: {
@@ -21,7 +23,7 @@
         if(confirm('Are you sure you want to delete this category?')){
 
             //LLamamos a la ruta que se encarga de eliminar la categoria
-            Inertia.delete(route('categories.destroy', id));
+            router.delete(route('categories.destroy', id));
         }
     }
 
@@ -54,18 +56,31 @@
                                 </div>
                                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                                     <p class="text-md leading-6 text-gray-900">
-                                        <Link :href="route('categories.edit', category.id)">
+                                        <Link v-if="$page.props.user.permissions.includes('update categories')" :href="route('categories.edit', category.id)" class="py-2 px-4">
                                             Edit
                                         </Link>
 
-                                        <Link @click="deleteCategory(category.id)">
+                                        <button v-if="$page.props.user.permissions.includes('delete categories')" @click="deleteCategory(category.id)" class="py-2 px-4 text-red-600">
                                             Delete
-                                        </Link>
+                                        </button>
                                     </p>
                                 </div>
                             </li>
                         </ul>
                     </div>
+
+                    <!-- Paginacion -->
+                    <div class="flex justify-between mt-2">
+                            <Link v-if="categories.current_page > 1" :href="categories.prev_page_url" class="py-2 px-4">
+                                PREVIOUS
+                            </Link>
+                            <div v-else></div>
+                            <Link v-if="categories.current_page < categories.last_page" :href="categories.next_page_url" class="py-2 px-4">
+                                NEXT
+                            </Link>
+                            <div v-else></div>
+                    </div>
+
                 </div>
 
             </div>

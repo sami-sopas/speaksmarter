@@ -17,7 +17,7 @@
 
 
 <template>
-    <AppLayout>
+    <AppLayout title="Create Category">
         <template #header> <!-- El contenido dentro de esta tag, se ubicara en el $slot.headers -->
             <h1 class="font-semibold text-xl text-gray-800 leading-tight" >
                 Create Category

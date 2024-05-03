@@ -43,7 +43,7 @@
             <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="name" value="name" />
                 <TextInput id="name" v-model="form.name" type="text" autocomplete="name" class="mt-1 block w-full" />
-                <!-- <InputError :message="$page.props.error.name"/> --> TODO MOSTRAR ERRORES
+                <InputError :message="$page.props.errorBags && $page.props.errorBags.default && $page.props.errorBags.default.name && $page.props.errorBags.default.name[0]"/> <!-- Mejorable ?-->
             </div>
         </template>
 
