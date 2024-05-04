@@ -9,15 +9,14 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
+    const NUMBER_OF_ITEMS_PER_PAGE = 3;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        define('NUMBER_OF_ITEMS_PER_PAGE',3);
-
-        $categories = Category::paginate(NUMBER_OF_ITEMS_PER_PAGE);
-
+        $categories = Category::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
 
         //inertia por defecto se posiciona en la carpeta resources/js/Pages
         return inertia('Categories/Index', ['categories' => $categories]);
